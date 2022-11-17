@@ -24,6 +24,31 @@
           joint_b: {p: 5000, i: 800, d: 100}
           joint_t: {p: 5000, i: 800, d: 100}
 
+
+  sia20_gripper_controller:
+    type: "effort_controllers/JointTrajectoryController"
+    joints:
+      - wrist_to_l
+      - wrist_to_r
+    gains:
+      wrist_to_l: {p: 150, d: 15, i: 0, i_clamp: 500.0}
+      wrist_to_r: {p: 150, d: 15, i: 0, i_clamp: 500.0}      
+    follow_joint_trajectory:
+      joints:
+      - wrist_to_l
+      - wrist_to_r
+      constraints:
+        goal_time: 10.0
+        wrist_to_l:
+          goal: 0.2
+        wrist_to_r:
+          goal: 0.2
+      state_publish_rate:  25            # Override default
+      action_monitor_rate: 30            # Override default
+      stop_trajectory_duration: 0        # Override default
+
+
+
   sia20_wrist_to_l_controller:
       type: effort_controllers/JointEffortController
       joint: wrist_to_l
